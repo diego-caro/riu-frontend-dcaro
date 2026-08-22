@@ -4,7 +4,7 @@ export interface Hero {
   power: string;
   secretIdentity?: string;
   weakness?: string;
-  isActive?: boolean;
+  isActive: boolean;
 }
 
 export type NewHero = Omit<Hero, 'id'>;
