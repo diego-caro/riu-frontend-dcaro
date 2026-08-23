@@ -6,6 +6,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { HeroService } from '../../../services/hero.service';
 import { Hero } from '../../../models/hero.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule],
@@ -16,6 +17,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class HeroList implements OnInit, AfterViewInit {
   private readonly heroService = inject(HeroService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
+
   readonly dataSource = new MatTableDataSource<Hero>([]);
   readonly displayedColumns = [
     'name',
@@ -44,7 +47,7 @@ export class HeroList implements OnInit, AfterViewInit {
   }
 
   onEdit(hero: Hero) {
-    // Implementation for editing a hero
+    this.router.navigate(['/heroes/', hero.id, 'edit']);
   }
 
   onDelete(hero: Hero) {
