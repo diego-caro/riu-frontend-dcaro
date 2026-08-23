@@ -6,6 +6,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { HeroService } from '../../../services/hero.service';
 import { Hero } from '../../../models/hero.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialog } from '../../../shared/confirm-dialog/confirm-dialog';
 
 @Component({
   imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule],
@@ -16,6 +18,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class HeroList implements OnInit, AfterViewInit {
   private readonly heroService = inject(HeroService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog);
+
   readonly dataSource = new MatTableDataSource<Hero>([]);
   readonly displayedColumns = [
     'name',
@@ -47,7 +51,15 @@ export class HeroList implements OnInit, AfterViewInit {
     // Implementation for editing a hero
   }
 
-  onDelete(hero: Hero) {
-    // Implementation for deleting a hero
+  onDelete(hero: Hero): void {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: { message: `Are you sure you want to delete ${hero.name}?` },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.heroService.deleteHero(hero.id).subscribe();
+      }
+    });
   }
 }
