@@ -52,6 +52,8 @@ export class HeroEditor implements OnInit {
       this.heroService.getHeroById(this.heroId!).subscribe((hero) => {
         if (hero) {
           this.heroForm.patchValue(hero);
+        } else {
+          this.router.navigate(['/heroes']);
         }
       });
     }
