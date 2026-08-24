@@ -8,6 +8,7 @@ import { Hero } from '../../../models/hero.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../../shared/confirm-dialog/confirm-dialog';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule],
@@ -19,6 +20,7 @@ export class HeroList implements OnInit, AfterViewInit {
   private readonly heroService = inject(HeroService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
+  private readonly router = inject(Router);
 
   readonly dataSource = new MatTableDataSource<Hero>([]);
   readonly displayedColumns = [
@@ -32,7 +34,7 @@ export class HeroList implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.heroService
       .getHeroes()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -41,14 +43,18 @@ export class HeroList implements OnInit, AfterViewInit {
       });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
   }
 
-  onEdit(hero: Hero) {
-    // Implementation for editing a hero
+  onAdd(): void {
+    this.router.navigate(['/heroes/', 'new']);
+  }
+
+  onEdit(hero: Hero): void {
+    this.router.navigate(['/heroes/', hero.id, 'edit']);
   }
 
   onDelete(hero: Hero): void {

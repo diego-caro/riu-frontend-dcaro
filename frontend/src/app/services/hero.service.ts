@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 const HEROES_SEED: Hero[] = [
   {
-    id: '1',
+    id: crypto.randomUUID(),
     name: 'Spider man',
     power: 'Wall-Crawling',
     secretIdentity: 'Peter Parker',
@@ -12,7 +12,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '2',
+    id: crypto.randomUUID(),
     name: 'Iron Man',
     power: 'Genius Intellect',
     secretIdentity: 'Tony Stark',
@@ -20,7 +20,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '3',
+    id: crypto.randomUUID(),
     name: 'Batman',
     power: 'Intelligence',
     secretIdentity: 'Bruce Wayne',
@@ -28,7 +28,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '4',
+    id: crypto.randomUUID(),
     name: 'Superman',
     power: 'Super strength',
     secretIdentity: 'Clark Kent',
@@ -36,7 +36,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '5',
+    id: crypto.randomUUID(),
     name: 'Captain America',
     power: 'Super Soldier',
     secretIdentity: 'Steve Rogers',
@@ -44,7 +44,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '6',
+    id: crypto.randomUUID(),
     name: 'Thor',
     power: 'God of Thunder',
     secretIdentity: 'Thor Odinson',
@@ -52,7 +52,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '7',
+    id: crypto.randomUUID(),
     name: 'Hulk',
     power: 'Super Strength',
     secretIdentity: 'Bruce Banner',
@@ -60,7 +60,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '8',
+    id: crypto.randomUUID(),
     name: 'Black Widow',
     power: 'Espionage',
     secretIdentity: 'Natasha Romanoff',
@@ -68,7 +68,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '9',
+    id: crypto.randomUUID(),
     name: 'Doctor Strange',
     power: 'Magic',
     secretIdentity: 'Stephen Strange',
@@ -76,7 +76,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '10',
+    id: crypto.randomUUID(),
     name: 'Black Panther',
     power: 'Enhanced abilities',
     secretIdentity: "T'Challa",
@@ -84,7 +84,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '11',
+    id: crypto.randomUUID(),
     name: 'Wonder Woman',
     power: 'Super strength',
     secretIdentity: 'Diana Prince',
@@ -92,7 +92,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '12',
+    id: crypto.randomUUID(),
     name: 'Flash',
     power: 'Super speed',
     secretIdentity: 'Barry Allen',
@@ -100,7 +100,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '13',
+    id: crypto.randomUUID(),
     name: 'Green Lantern',
     power: 'Power ring',
     secretIdentity: 'Hal Jordan',
@@ -108,7 +108,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '14',
+    id: crypto.randomUUID(),
     name: 'Aquaman',
     power: 'Underwater breathing',
     secretIdentity: 'Arthur Curry',
@@ -116,7 +116,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '15',
+    id: crypto.randomUUID(),
     name: 'Shazam',
     power: 'Magic',
     secretIdentity: 'Billy Batson',
@@ -124,7 +124,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '16',
+    id: crypto.randomUUID(),
     name: 'Doctor Fate',
     power: 'Magic',
     secretIdentity: 'Kent Nelson',
@@ -132,7 +132,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '17',
+    id: crypto.randomUUID(),
     name: 'Atom',
     power: 'Size manipulation',
     secretIdentity: 'Ray Palmer',
@@ -140,7 +140,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '18',
+    id: crypto.randomUUID(),
     name: 'Hawkeye',
     power: 'Archery',
     secretIdentity: 'Clint Barton',
@@ -148,7 +148,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '19',
+    id: crypto.randomUUID(),
     name: 'Scarlet Witch',
     power: 'Reality manipulation',
     secretIdentity: 'Wanda Maximoff',
@@ -156,7 +156,7 @@ const HEROES_SEED: Hero[] = [
     isActive: true,
   },
   {
-    id: '20',
+    id: crypto.randomUUID(),
     name: 'Vision',
     power: 'Density control',
     secretIdentity: 'Vision',
