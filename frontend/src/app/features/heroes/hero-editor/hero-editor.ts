@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { UppercaseDirective } from '../../../shared/directives/uppercase.directive';
 
 @Component({
   imports: [
@@ -15,7 +16,8 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    UppercaseDirective,
   ],
   selector: 'app-hero-editor',
   styleUrl: './hero-editor.scss',
