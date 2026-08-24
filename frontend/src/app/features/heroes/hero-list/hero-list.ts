@@ -9,9 +9,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../../shared/confirm-dialog/confirm-dialog';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule],
+  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatInputModule, ReactiveFormsModule],
   selector: 'app-hero-list',
   styleUrl: './hero-list.scss',
   templateUrl: './hero-list.html',
@@ -34,10 +37,17 @@ export class HeroList implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
+  searchControl = new FormControl('');
+
   ngOnInit(): void {
-    this.heroService
-      .getHeroes()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        startWith(''),
+        switchMap((term) => this.heroService.searchHeroesByName(term ?? '')),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((heroes) => {
         this.dataSource.data = heroes;
       });

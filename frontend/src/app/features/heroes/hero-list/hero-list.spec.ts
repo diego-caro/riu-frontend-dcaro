@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HeroList } from './hero-list';
 import { of } from 'rxjs';
 import { HeroService } from '../../../services/hero.service';
@@ -57,4 +57,17 @@ describe('HeroList', () => {
 
     expect(spy).not.toHaveBeenCalled();
   });
+
+  it('should filter heroes by search term', (() => {
+    vi.useFakeTimers();
+
+    component.searchControl.setValue('man');
+    vi.advanceTimersByTime(300);
+
+    vi.useRealTimers();
+
+    const filtered = component.dataSource.data;
+    expect(filtered.length).toBeGreaterThan(0);
+    expect(filtered.every((h) => h.name.toLowerCase().includes('man'))).toBe(true);
+  }));
 });
