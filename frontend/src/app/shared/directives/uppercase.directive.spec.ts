@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UppercaseDirective } from './uppercase';
+import { UppercaseDirective } from './uppercase.directive';
 
 @Component({
   imports: [ReactiveFormsModule, UppercaseDirective],

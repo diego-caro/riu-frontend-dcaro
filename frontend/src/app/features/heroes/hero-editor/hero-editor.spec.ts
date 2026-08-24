@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HeroEditor } from './hero-editor';
 import { HeroService } from '../../../services/hero.service';
 import { ActivatedRoute, Router } from '@angular/router';
