@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, DestroyRef, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -12,9 +20,18 @@ import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  imports: [MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatInputModule, ReactiveFormsModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatCardModule,
+  ],
   selector: 'app-hero-list',
   styleUrl: './hero-list.scss',
   templateUrl: './hero-list.html',
@@ -24,6 +41,7 @@ export class HeroList implements OnInit, AfterViewInit {
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   readonly dataSource = new MatTableDataSource<Hero>([]);
   readonly displayedColumns = [
@@ -50,6 +68,7 @@ export class HeroList implements OnInit, AfterViewInit {
       )
       .subscribe((heroes) => {
         this.dataSource.data = heroes;
+        this.changeDetectorRef.markForCheck();
       });
   }
 

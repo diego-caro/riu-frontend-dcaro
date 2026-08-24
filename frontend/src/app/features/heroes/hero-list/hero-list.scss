@@ -1,6 +1,45 @@
+@use '@angular/material' as mat;
+
 .top-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    .search-input {
+      @include mat.form-field-density(-4);
+    }
+  }
+}
+.bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: #e0e0e0;
+    color: #616161;
+
+    &.active {
+      background: #c8e6c9;
+      color: #2e7d32;
+    }
+  }
+  .no-data {
+    display: flex;
+    margin: 5rem;
+  }
+  .table-data {
+    display: flex;
+    width: 100%;
+  }
 }
