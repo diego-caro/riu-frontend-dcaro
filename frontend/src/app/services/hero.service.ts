@@ -1,6 +1,7 @@
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, delay, finalize, map, Observable, of, tap } from 'rxjs';
 import { Hero, NewHero } from '../models/hero.model';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { LoadingService } from './loading.service';
 
 const HEROES_SEED: Hero[] = [
   {
@@ -170,6 +171,7 @@ const HEROES_SEED: Hero[] = [
 })
 export class HeroService {
   private readonly heroesStore = new BehaviorSubject<Hero[]>([...HEROES_SEED]);
+  private readonly loadingService = inject(LoadingService);
 
   getHeroes(): Observable<Hero[]> {
     return this.heroesStore.asObservable();
@@ -199,9 +201,13 @@ export class HeroService {
       id: crypto.randomUUID(), // Generate a random ID for the new hero
     };
 
-    this.heroesStore.next([...currentHeroes, newHero]);
+    this.loadingService.show();
 
-    return of(newHero);
+    return of(newHero).pipe(
+      delay(500),
+      tap(() => this.heroesStore.next([...currentHeroes, newHero])),
+      finalize(() => this.loadingService.hide()),
+    );
   }
 
   updateHero(updatedHero: Hero): Observable<Hero | undefined> {
@@ -212,9 +218,17 @@ export class HeroService {
       return of(undefined);
     }
 
-    this.heroesStore.next(heroes.map((hero) => (hero.id === updatedHero.id ? updatedHero : hero)));
+    this.loadingService.show();
 
-    return of(updatedHero);
+    return of(updatedHero).pipe(
+      delay(500),
+      tap(() =>
+        this.heroesStore.next(
+          heroes.map((hero) => (hero.id === updatedHero.id ? updatedHero : hero)),
+        ),
+      ),
+      finalize(() => this.loadingService.hide()),
+    );
   }
 
   deleteHero(id: string): Observable<boolean> {
@@ -225,8 +239,12 @@ export class HeroService {
       return of(false);
     }
 
-    this.heroesStore.next(heroes.filter((hero) => hero.id !== id));
+    this.loadingService.show();
 
-    return of(true);
+    return of(true).pipe(
+      delay(500),
+      tap(() => this.heroesStore.next(heroes.filter((hero) => hero.id !== id))),
+      finalize(() => this.loadingService.hide()),
+    );
   }
 }

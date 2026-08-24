@@ -30,6 +30,7 @@ describe('HeroEditor', () => {
   });
 
   it('should create a new Hero and navigate', () => {
+    vi.useFakeTimers();
     const component = createComponent(null);
     const spy = vi.spyOn(heroService, 'addHero');
     component.heroForm.setValue({
@@ -40,6 +41,8 @@ describe('HeroEditor', () => {
       isActive: true,
     });
     component.onSubmit();
+    vi.advanceTimersByTime(500);
+    vi.useRealTimers();
     expect(spy).toHaveBeenCalled();
     expect(routerMock.navigate).toHaveBeenCalledWith(['/heroes']);
   });
