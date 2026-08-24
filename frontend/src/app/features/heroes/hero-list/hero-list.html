@@ -22,33 +22,33 @@
     <table mat-table [dataSource]="dataSource">
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef class="column-data">Name</th>
         <td mat-cell *matCellDef="let hero">{{ hero.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="power">
-        <th mat-header-cell *matHeaderCellDef>Power</th>
+        <th mat-header-cell *matHeaderCellDef class="column-data">Power</th>
         <td mat-cell *matCellDef="let hero">{{ hero.power }}</td>
       </ng-container>
 
       <ng-container matColumnDef="secretIdentity">
-        <th mat-header-cell *matHeaderCellDef>Secret Identity</th>
+        <th mat-header-cell *matHeaderCellDef class="column-data">Secret Identity</th>
         <td mat-cell *matCellDef="let hero">{{ hero.secretIdentity }}</td>
       </ng-container>
 
       <ng-container matColumnDef="weakness">
-        <th mat-header-cell *matHeaderCellDef>Weakness</th>
+        <th mat-header-cell *matHeaderCellDef class="column-data">Weakness</th>
         <td mat-cell *matCellDef="let hero">{{ hero.weakness }}</td>
       </ng-container>
 
       <ng-container matColumnDef="isActive">
-        <th mat-header-cell *matHeaderCellDef>State</th>
+        <th mat-header-cell *matHeaderCellDef class="column-data">State</th>
         <td mat-cell *matCellDef="let hero"><span class="status-badge" [class.active]="hero.isActive">{{hero.isActive ?
             'Active' : 'Inactive' }}</span></td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <th mat-header-cell *matHeaderCellDef class="column-data">Actions</th>
         <td mat-cell *matCellDef="let hero">
           <button mat-icon-button (click)="onEdit(hero)"><mat-icon>edit</mat-icon></button>
           <button mat-icon-button (click)="onDelete(hero)"><mat-icon>delete</mat-icon></button>

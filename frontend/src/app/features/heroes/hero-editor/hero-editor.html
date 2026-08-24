@@ -1,41 +1,49 @@
-<h2>{{ isEditMode ? 'Edit Hero' : 'New Hero' }}</h2>
+<mat-card class="form-card">
+  <mat-card-header>
+    <mat-card-title class="title">
+      {{ isEditMode ? 'Edit Hero' : 'New Hero' }}
+    </mat-card-title>
+  </mat-card-header>
 
-<form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" />
-    @if (heroForm.controls.name.hasError('required')) {
-    <mat-error>The name is required</mat-error>
-    }
-  </mat-form-field>
+  <mat-card-content>
+    <form [formGroup]="heroForm" (ngSubmit)="onSubmit()" class="hero-form">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+        @if (heroForm.controls.name.hasError('required')) {
+        <mat-error>The name is required</mat-error>
+        }
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Power</mat-label>
-    <input matInput formControlName="power" />
-    @if (heroForm.controls.power.hasError('required')) {
-    <mat-error>The power is required</mat-error>
-    }
-    @if (heroForm.controls.power.hasError('minlength')) {
-    <mat-error>At lest 5 characters</mat-error>
-    }
-  </mat-form-field>
+      <mat-form-field>
+        <mat-label>Power</mat-label>
+        <input matInput formControlName="power" />
+        @if (heroForm.controls.power.hasError('required')) {
+        <mat-error>The power is required</mat-error>
+        }
+        @if (heroForm.controls.power.hasError('minlength')) {
+        <mat-error>At lest 5 characters</mat-error>
+        }
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Secret Identity</mat-label>
-    <input matInput formControlName="secretIdentity" />
-  </mat-form-field>
+      <mat-form-field>
+        <mat-label>Secret Identity</mat-label>
+        <input matInput formControlName="secretIdentity" />
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Weakness</mat-label>
-    <input matInput formControlName="weakness" />
-  </mat-form-field>
+      <mat-form-field>
+        <mat-label>Weakness</mat-label>
+        <input matInput formControlName="weakness" />
+      </mat-form-field>
 
-  <mat-checkbox formControlName="isActive">Active</mat-checkbox>
+      <mat-checkbox formControlName="isActive">Active</mat-checkbox>
 
-  <div class="actions">
-    <button mat-button type="button" (click)="onCancel()">Cancel</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="heroForm.invalid">
-      Save
-    </button>
-  </div>
-</form>
+      <div class="form-actions">
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="heroForm.invalid">
+          Save
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
