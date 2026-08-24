@@ -69,4 +69,10 @@ describe('HeroEditor', () => {
     component.onSubmit();
     expect(spy).toHaveBeenCalled();
   });
+
+  it('should navigate to list on cancel', () => {
+    const component = createComponent(null);
+    component.onCancel();
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/heroes']);
+  });
 });

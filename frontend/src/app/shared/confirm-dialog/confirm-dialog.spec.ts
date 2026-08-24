@@ -35,4 +35,24 @@ describe('ConfirmDialog', () => {
     component.onCancel();
     expect(dialogMock.close).toHaveBeenCalledWith(false);
   });
+
+  it('should confirm when the confirm button is clicked', () => {
+    const fixture = TestBed.createComponent(ConfirmDialog);
+    fixture.detectChanges();
+
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    buttons[1].click();
+
+    expect(dialogMock.close).toHaveBeenCalledWith(true);
+  });
+
+  it('should cancel when the cancel button is clicked', () => {
+    const fixture = TestBed.createComponent(ConfirmDialog);
+    fixture.detectChanges();
+
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+    buttons[0].click();
+
+    expect(dialogMock.close).toHaveBeenCalledWith(false);
+  });
 });
