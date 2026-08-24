@@ -1,5 +1,9 @@
 <div class="top-container">
   <h1>Heroes</h1>
+  <mat-form-field>
+    <mat-label>Search</mat-label>
+    <input matInput [formControl]="searchControl" />
+  </mat-form-field>
   <button mat-raised-button color="primary" (click)="onAdd()">
     <mat-icon>add</mat-icon> New Hero
   </button>
