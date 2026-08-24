@@ -15,7 +15,7 @@ import { HeroService } from '../../../services/hero.service';
 import { Hero } from '../../../models/hero.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialog } from '../../../shared/confirm-dialog/confirm-dialog';
+import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
