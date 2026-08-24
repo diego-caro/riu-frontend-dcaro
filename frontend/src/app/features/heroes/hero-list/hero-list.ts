@@ -79,11 +79,11 @@ export class HeroList implements OnInit, AfterViewInit {
   }
 
   onAdd(): void {
-    this.router.navigate(['/heroes/', 'new']);
+    this.router.navigate(['/heroes', 'new']);
   }
 
   onEdit(hero: Hero): void {
-    this.router.navigate(['/heroes/', hero.id, 'edit']);
+    this.router.navigate(['/heroes', hero.id, 'edit']);
   }
 
   onDelete(hero: Hero): void {
