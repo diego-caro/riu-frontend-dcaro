@@ -17,7 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialog } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, startWith, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -87,14 +87,16 @@ export class HeroList implements OnInit, AfterViewInit {
   }
 
   onDelete(hero: Hero): void {
-    const dialogRef = this.dialog.open(ConfirmDialog, {
-      data: { message: `Are you sure you want to delete ${hero.name}?` },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.heroService.deleteHero(hero.id).subscribe();
-      }
-    });
+    this.dialog
+      .open(ConfirmDialog, {
+        data: { message: `Are you sure you want to delete ${hero.name}?` },
+      })
+      .afterClosed()
+      .pipe(
+        filter((confirmed) => confirmed),
+        switchMap(() => this.heroService.deleteHero(hero.id)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe();
   }
 }
