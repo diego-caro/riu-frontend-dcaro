@@ -39,11 +39,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './hero-list.html',
 })
 export class HeroList implements OnInit, AfterViewInit {
-  private readonly heroService = inject(HeroService);
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly dialog = inject(MatDialog);
-  private readonly router = inject(Router);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly _heroService = inject(HeroService);
+  private readonly _destroyRef = inject(DestroyRef);
+  private readonly _dialog = inject(MatDialog);
+  private readonly _router = inject(Router);
+  private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
   readonly dataSource = new MatTableDataSource<Hero>([]);
   readonly displayedColumns = [
@@ -65,12 +65,12 @@ export class HeroList implements OnInit, AfterViewInit {
         debounceTime(300),
         distinctUntilChanged(),
         startWith(''),
-        switchMap((term) => this.heroService.searchHeroesByName(term ?? '')),
-        takeUntilDestroyed(this.destroyRef),
+        switchMap((term) => this._heroService.searchHeroesByName(term ?? '')),
+        takeUntilDestroyed(this._destroyRef),
       )
       .subscribe((heroes) => {
         this.dataSource.data = heroes;
-        this.changeDetectorRef.markForCheck();
+        this._changeDetectorRef.markForCheck();
       });
   }
 
@@ -81,23 +81,23 @@ export class HeroList implements OnInit, AfterViewInit {
   }
 
   onAdd(): void {
-    this.router.navigate(['/heroes', 'new']);
+    this._router.navigate(['/heroes', 'new']);
   }
 
   onEdit(hero: Hero): void {
-    this.router.navigate(['/heroes', hero.id, 'edit']);
+    this._router.navigate(['/heroes', hero.id, 'edit']);
   }
 
   onDelete(hero: Hero): void {
-    this.dialog
+    this._dialog
       .open(ConfirmDialog, {
         data: { message: `Are you sure you want to delete ${hero.name}?` },
       })
       .afterClosed()
       .pipe(
         filter((confirmed) => confirmed),
-        switchMap(() => this.heroService.deleteHero(hero.id)),
-        takeUntilDestroyed(this.destroyRef),
+        switchMap(() => this._heroService.deleteHero(hero.id)),
+        takeUntilDestroyed(this._destroyRef),
       )
       .subscribe();
   }

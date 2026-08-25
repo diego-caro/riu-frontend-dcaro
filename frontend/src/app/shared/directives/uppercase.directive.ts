@@ -6,11 +6,11 @@ import { NgControl } from '@angular/forms';
   selector: '[appUppercase]',
 })
 export class UppercaseDirective implements OnInit {
-  private readonly ngControl = inject(NgControl);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly _ngControl = inject(NgControl);
+  private readonly _destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
-    const control = this.ngControl.control;
+    const control = this._ngControl.control;
     if (!control) {
       return;
     }
@@ -20,7 +20,7 @@ export class UppercaseDirective implements OnInit {
 
     // transform each change (typing or patchValue)
     control.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe((value: string) => this.toUpperCase(value));
   }
 
@@ -31,7 +31,7 @@ export class UppercaseDirective implements OnInit {
 
     const upper = value.toUpperCase();
     if (value !== upper) {
-      this.ngControl.control?.setValue(upper, { emitEvent: false });
+      this._ngControl.control?.setValue(upper, { emitEvent: false });
     }
   }
 }
