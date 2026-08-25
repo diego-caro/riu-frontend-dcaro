@@ -20,8 +20,19 @@ describe('UppercaseDirective', () => {
     fixture.detectChanges();
   });
 
-  it('should apply uppercase text-transform', () => {
+  it('should transform the control value to uppercase on input', () => {
     const input: HTMLInputElement = fixture.nativeElement.querySelector('input');
-    expect(input.style.textTransform).toBe('uppercase');
+    input.value = 'spiderman';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.control.value).toBe('SPIDERMAN');
   });
+
+  it ('should transform a preloaded value to uppercase', () => {
+    fixture.componentInstance.control.setValue('batman');
+    fixture.detectChanges();
+    
+    expect(fixture.componentInstance.control.value).toBe('BATMAN');
+  })
 });
