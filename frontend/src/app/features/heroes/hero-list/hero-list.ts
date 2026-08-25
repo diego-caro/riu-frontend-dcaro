@@ -45,8 +45,8 @@ export class HeroList implements OnInit, AfterViewInit {
   private readonly _router = inject(Router);
   private readonly _changeDetectorRef = inject(ChangeDetectorRef);
 
-  readonly dataSource = new MatTableDataSource<Hero>([]);
-  readonly displayedColumns = [
+  protected readonly dataSource = new MatTableDataSource<Hero>([]);
+  protected readonly displayedColumns = [
     'name',
     'power',
     'secretIdentity',
