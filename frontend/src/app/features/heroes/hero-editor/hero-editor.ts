@@ -35,7 +35,6 @@ export class HeroEditor implements OnInit {
     return this._heroId !== null;
   }
 
-  // Form definition with validations
   heroForm = this._formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
     power: ['', [Validators.required, Validators.minLength(5)]],
@@ -47,7 +46,6 @@ export class HeroEditor implements OnInit {
   ngOnInit(): void {
     this._heroId = this._activeRoute.snapshot.paramMap.get('id');
 
-    // if edit, load hero data and set the form
     if (this.isEditMode) {
       this._heroService.getHeroById(this._heroId!).subscribe((hero) => {
         if (hero) {

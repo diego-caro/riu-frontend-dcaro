@@ -198,7 +198,7 @@ export class HeroService {
 
     const newHero: Hero = {
       ...hero,
-      id: crypto.randomUUID(), // Generate a random ID for the new hero
+      id: crypto.randomUUID(),
     };
 
     this._loadingService.show();
