@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, HostListener, inject, OnInit } from '@angular/core';
+import { DestroyRef, Directive, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
 

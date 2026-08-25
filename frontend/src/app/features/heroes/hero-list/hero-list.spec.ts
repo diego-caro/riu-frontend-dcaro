@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroList } from './hero-list';
 import { of } from 'rxjs';
 import { HeroService } from '../../../services/hero.service';
