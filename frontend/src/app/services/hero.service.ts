@@ -188,7 +188,7 @@ export class HeroService {
 
     return heroes.pipe(
       map((heroList) =>
-        heroList.filter((hero) => hero.name.toLowerCase().includes(name.toLowerCase())),
+        heroList.filter((hero) => hero.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(name.toLowerCase())),
       ),
     );
   }
