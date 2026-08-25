@@ -21,6 +21,7 @@ import { debounceTime, distinctUntilChanged, filter, startWith, switchMap } from
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   imports: [
@@ -31,6 +32,7 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatTooltipModule
   ],
   selector: 'app-hero-list',
   styleUrl: './hero-list.scss',

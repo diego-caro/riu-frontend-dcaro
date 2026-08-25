@@ -93,4 +93,20 @@ describe('HeroList', () => {
     addBtn.click();
     expect(routerMock.navigate).toHaveBeenCalledWith(['/heroes', 'new']);
   });
+
+  it('should have aria-labels on action buttons', () => {
+    const editBtn = fixture.nativeElement.querySelector('button[aria-label="Edit hero"]');
+    const deleteBtn = fixture.nativeElement.querySelector('button[aria-label="Delete hero"]');
+
+    expect(editBtn).toBeTruthy();
+    expect(deleteBtn).toBeTruthy();
+  });
+
+  it('should have aria-labels on action buttons', () => {
+    const editBtn = fixture.nativeElement.querySelector('button[matTooltip="Edit"]');
+    const deleteBtn = fixture.nativeElement.querySelector('button[matTooltip="Delete"]');
+
+    expect(editBtn).toBeTruthy();
+    expect(deleteBtn).toBeTruthy();
+  });
 });
