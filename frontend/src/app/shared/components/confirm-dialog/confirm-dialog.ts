@@ -9,14 +9,14 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
   templateUrl: './confirm-dialog.html',
 })
 export class ConfirmDialog {
-  private readonly dialogRef = inject(MatDialogRef<ConfirmDialog>);
+  private readonly _dialogRef = inject(MatDialogRef<ConfirmDialog>);
   readonly data = inject<{ message: string }>(MAT_DIALOG_DATA);
 
   onCancel(): void {
-    this.dialogRef.close(false);
+    this._dialogRef.close(false);
   }
 
   onConfirm(): void {
-    this.dialogRef.close(true);
+    this._dialogRef.close(true);
   }
 }

@@ -170,11 +170,11 @@ const HEROES_SEED: Hero[] = [
   providedIn: 'root',
 })
 export class HeroService {
-  private readonly heroesStore = new BehaviorSubject<Hero[]>([...HEROES_SEED]);
-  private readonly loadingService = inject(LoadingService);
+  private readonly _heroesStore = new BehaviorSubject<Hero[]>([...HEROES_SEED]);
+  private readonly _loadingService = inject(LoadingService);
 
   getHeroes(): Observable<Hero[]> {
-    return this.heroesStore.asObservable();
+    return this._heroesStore.asObservable();
   }
 
   getHeroById(id: string): Observable<Hero | undefined> {
@@ -188,63 +188,63 @@ export class HeroService {
 
     return heroes.pipe(
       map((heroList) =>
-        heroList.filter((hero) => hero.name.toLowerCase().includes(name.toLowerCase())),
+        heroList.filter((hero) => hero.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(name.toLowerCase())),
       ),
     );
   }
 
   addHero(hero: NewHero): Observable<Hero> {
-    const currentHeroes = this.heroesStore.value;
+    const currentHeroes = this._heroesStore.value;
 
     const newHero: Hero = {
       ...hero,
-      id: crypto.randomUUID(), // Generate a random ID for the new hero
+      id: crypto.randomUUID(),
     };
 
-    this.loadingService.show();
+    this._loadingService.show();
 
     return of(newHero).pipe(
       delay(500),
-      tap(() => this.heroesStore.next([...currentHeroes, newHero])),
-      finalize(() => this.loadingService.hide()),
+      tap(() => this._heroesStore.next([...currentHeroes, newHero])),
+      finalize(() => this._loadingService.hide()),
     );
   }
 
   updateHero(updatedHero: Hero): Observable<Hero | undefined> {
-    const heroes = this.heroesStore.value;
+    const heroes = this._heroesStore.value;
     const heroExists = heroes.some((hero) => hero.id === updatedHero.id);
 
     if (!heroExists) {
       return of(undefined);
     }
 
-    this.loadingService.show();
+    this._loadingService.show();
 
     return of(updatedHero).pipe(
       delay(500),
       tap(() =>
-        this.heroesStore.next(
+        this._heroesStore.next(
           heroes.map((hero) => (hero.id === updatedHero.id ? updatedHero : hero)),
         ),
       ),
-      finalize(() => this.loadingService.hide()),
+      finalize(() => this._loadingService.hide()),
     );
   }
 
   deleteHero(id: string): Observable<boolean> {
-    const heroes = this.heroesStore.value;
+    const heroes = this._heroesStore.value;
     const heroExists = heroes.some((hero) => hero.id === id);
 
     if (!heroExists) {
       return of(false);
     }
 
-    this.loadingService.show();
+    this._loadingService.show();
 
     return of(true).pipe(
       delay(500),
-      tap(() => this.heroesStore.next(heroes.filter((hero) => hero.id !== id))),
-      finalize(() => this.loadingService.hide()),
+      tap(() => this._heroesStore.next(heroes.filter((hero) => hero.id !== id))),
+      finalize(() => this._loadingService.hide()),
     );
   }
 }

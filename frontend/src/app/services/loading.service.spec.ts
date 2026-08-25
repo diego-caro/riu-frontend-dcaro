@@ -19,9 +19,23 @@ describe('LoadingService', () => {
     expect(await firstValueFrom(service.loading$)).toBe(true);
   });
 
-  it('should emit false on hide', async () => {
+  it('should stay loading while operations are still pending', async () => {
     service.show();
+    service.show();
+    service.hide();
+    expect(await firstValueFrom(service.loading$)).toBe(true);
+  });
+  
+  it('should stop loading when all operations finish', async () => {
+    service.show();
+    service.show();
+    service.hide();
     service.hide();
     expect(await firstValueFrom(service.loading$)).toBe(false);
   });
+
+  it('should not go below zero on an extra hide', async() => {
+    service.hide();
+    expect(await firstValueFrom(service.loading$)).toBe(false)
+  })
 });

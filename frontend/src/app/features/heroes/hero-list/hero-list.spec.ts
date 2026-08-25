@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeroList } from './hero-list';
 import { of } from 'rxjs';
 import { HeroService } from '../../../services/hero.service';
@@ -34,7 +34,7 @@ describe('HeroList', () => {
   });
 
   it('should fetch heroes onInit', () => {
-    expect(component.dataSource.data.length).toBeGreaterThan(0);
+    expect(component['dataSource'].data.length).toBeGreaterThan(0);
   });
 
   it('should render hero rows', () => {
@@ -45,7 +45,7 @@ describe('HeroList', () => {
   it('should delete when confirmed', () => {
     dialogMock.open.mockReturnValue({ afterClosed: () => of(true) });
     const spy = vi.spyOn(service, 'deleteHero');
-    const heroToDelete = component.dataSource.data[0];
+    const heroToDelete = component['dataSource'].data[0];
 
     component.onDelete(heroToDelete);
 
@@ -56,7 +56,7 @@ describe('HeroList', () => {
   it('should not delete when cancelled', () => {
     dialogMock.open.mockReturnValue({ afterClosed: () => of(false) });
     const spy = vi.spyOn(service, 'deleteHero');
-    const heroToDelete = component.dataSource.data[0];
+    const heroToDelete = component['dataSource'].data[0];
 
     component.onDelete(heroToDelete);
 
@@ -71,7 +71,7 @@ describe('HeroList', () => {
 
     vi.useRealTimers();
 
-    const filtered = component.dataSource.data;
+    const filtered = component['dataSource'].data;
     expect(filtered.length).toBeGreaterThan(0);
     expect(filtered.every((h) => h.name.toLowerCase().includes('man'))).toBe(true);
   });
@@ -82,7 +82,7 @@ describe('HeroList', () => {
   });
 
   it('should navigate to edit form on edit', () => {
-    const hero = component.dataSource.data[0];
+    const hero = component['dataSource'].data[0];
     component.onEdit(hero);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/heroes', hero.id, 'edit']);
   });
@@ -92,5 +92,21 @@ describe('HeroList', () => {
       fixture.nativeElement.querySelector('[data-testid="add-btn"]');
     addBtn.click();
     expect(routerMock.navigate).toHaveBeenCalledWith(['/heroes', 'new']);
+  });
+
+  it('should have aria-labels on action buttons', () => {
+    const editBtn = fixture.nativeElement.querySelector('button[aria-label="Edit hero"]');
+    const deleteBtn = fixture.nativeElement.querySelector('button[aria-label="Delete hero"]');
+
+    expect(editBtn).toBeTruthy();
+    expect(deleteBtn).toBeTruthy();
+  });
+
+  it('should have aria-labels on action buttons', () => {
+    const editBtn = fixture.nativeElement.querySelector('button[matTooltip="Edit"]');
+    const deleteBtn = fixture.nativeElement.querySelector('button[matTooltip="Delete"]');
+
+    expect(editBtn).toBeTruthy();
+    expect(deleteBtn).toBeTruthy();
   });
 });

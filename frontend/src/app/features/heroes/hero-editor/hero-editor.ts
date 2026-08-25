@@ -24,19 +24,18 @@ import { UppercaseDirective } from '../../../shared/directives/uppercase.directi
   templateUrl: './hero-editor.html',
 })
 export class HeroEditor implements OnInit {
-  private readonly formBuilder = inject(FormBuilder);
-  private readonly activeRoute = inject(ActivatedRoute);
-  private readonly router = inject(Router);
-  private readonly heroService = inject(HeroService);
+  private readonly _formBuilder = inject(FormBuilder);
+  private readonly _activeRoute = inject(ActivatedRoute);
+  private readonly _router = inject(Router);
+  private readonly _heroService = inject(HeroService);
 
-  private heroId: string | null = null;
+  private _heroId: string | null = null;
 
   get isEditMode(): boolean {
-    return this.heroId !== null;
+    return this._heroId !== null;
   }
 
-  // Form definition with validations
-  heroForm = this.formBuilder.nonNullable.group({
+  heroForm = this._formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
     power: ['', [Validators.required, Validators.minLength(5)]],
     secretIdentity: [''],
@@ -45,15 +44,14 @@ export class HeroEditor implements OnInit {
   });
 
   ngOnInit(): void {
-    this.heroId = this.activeRoute.snapshot.paramMap.get('id');
+    this._heroId = this._activeRoute.snapshot.paramMap.get('id');
 
-    // if edit, load hero data and set the form
     if (this.isEditMode) {
-      this.heroService.getHeroById(this.heroId!).subscribe((hero) => {
+      this._heroService.getHeroById(this._heroId!).subscribe((hero) => {
         if (hero) {
           this.heroForm.patchValue(hero);
         } else {
-          this.router.navigate(['/heroes']);
+          this._router.navigate(['/heroes']);
         }
       });
     }
@@ -65,13 +63,13 @@ export class HeroEditor implements OnInit {
     }
 
     const request$ = this.isEditMode
-      ? this.heroService.updateHero({ ...this.heroForm.getRawValue(), id: this.heroId! })
-      : this.heroService.addHero(this.heroForm.getRawValue());
+      ? this._heroService.updateHero({ ...this.heroForm.getRawValue(), id: this._heroId! })
+      : this._heroService.addHero(this.heroForm.getRawValue());
 
-    request$.subscribe(() => this.router.navigate(['/heroes']));
+    request$.subscribe(() => this._router.navigate(['/heroes']));
   }
 
   onCancel(): void {
-    this.router.navigate(['/heroes']);
+    this._router.navigate(['/heroes']);
   }
 }
